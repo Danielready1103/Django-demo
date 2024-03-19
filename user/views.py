@@ -4,7 +4,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 
 
-# Create your views here.
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+
+
+def user_profile(request):
+    return render(request, "user/profile.html", {"user": request.user})
+
+
 def user_login(request):
     message = ""
 
@@ -21,6 +29,7 @@ def user_login(request):
                 if user:
                     login(request, user)
                     message = "登入成功。"
+                    return redirect("profile")
                 else:
                     message = "帳號或密碼錯誤。"
 
