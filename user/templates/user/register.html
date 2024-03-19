@@ -2,11 +2,24 @@
 
 {% block title %}註冊{% endblock %}
 
+{% block style %}
+<style>
+    .button-style {
+        background-color: cadetblue;
+        width: 100px;
+        border-radius: 12px;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Login</h1>
 <form action="" method="post">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">註冊</button>
+    <div id="info" style="background-color: antiquewhite;text-align: left;">
+        {{form.as_p}}
+        <button class="button-style" type="submit">註冊</button>
+    </div>
+
 </form>
 {% endblock %}
