@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}單一事項{% endblock %}
+
+{% block style %}
+<style>
+    .todo-style {
+        background-color: rgb(176, 235, 121);
+        margin: 12px auto;
+        width: 500px;
+        height: 200px;
+        border-radius: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Todo</h1>
+<div class="odo-style">{{todo}}</div>
+
+{% endfor %}
+
+{% endblock %}
