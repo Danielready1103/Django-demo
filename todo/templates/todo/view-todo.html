@@ -10,14 +10,30 @@
         width: 500px;
         height: 200px;
         border-radius: 20px;
+        font-size: 20px;
+        color: rgb(5, 68, 122);
+    }
+
+    .content {
+        background-color: rgb(50, 230, 140);
+        text-align: center;
+        padding: 6px;
+        height: 90px;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Todo</h1>
-<div class="odo-style">{{todo}}</div>
+<div class="todo-style">{{todo.created}}<br>{{todo.title}}
 
-{% endfor %}
+    <div class="content">
+        <p>{{todo.text}}</p>
+        <p>{{todo.date_completed}}</p>
+    </div>
+
+</div>
+
+
 
 {% endblock %}
