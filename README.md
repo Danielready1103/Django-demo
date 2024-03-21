@@ -63,3 +63,6 @@ python manage.py startapp user
 
 [15] 使用POST，要記得帶上TOKEN
 {% csrf_token %}
+
+[16]
+python manage.py startapp todo
