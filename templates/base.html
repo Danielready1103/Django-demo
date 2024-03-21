@@ -22,15 +22,27 @@
         #container {
             text-align: center;
         }
+
+        ul {
+            list-style: None;
+        }
     </style>
+    {% block style %}
+    {% endblock %}
 </head>
 
 <body>
     <div id="navbar">
         {% if user.is_authenticated %}
-        <P>使用者名稱: {{user}}<a href="{% url 'logout' %}">登出</a><br>
-            {% else %}
-        <p><a href="{% url 'login' %}">登入</a> <a href="{% url 'register' %}">註冊</a></p>
+        <p>
+            <a href="{% url 'profile' %}">{{user}}的個人資訊</a>
+            <a href="{% url 'todo' %}">{{user}}Todo List</a>
+            <a href="{% url 'logout' %}">登出</a>
+        </p>
+        {% else %}
+        <p><a href="{% url 'login' %}">登入</a>
+            <a href="{% url 'register' %}">註冊</a>
+        </p>
         {% endif %}
     </div>
     <div id="container">

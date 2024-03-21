@@ -2,8 +2,56 @@
 
 {% block title %}代辦事項{% endblock %}
 
+{% block style %}
+<style>
+    .todo-style {
+        background-color: rgb(176, 235, 121);
+        margin: 12px auto;
+        width: 500px;
+        height: 200px;
+        border-radius: 20px;
+    }
+
+    .date {
+        background-color: rgb(0, 26, 255);
+        color: aliceblue;
+
+    }
+
+    .text {
+        background-color: rgb(50, 230, 140);
+        color: rgb(6, 81, 104);
+        padding: 6px;
+        height: 100px;
+        border-radius: 20px;
+
+    }
+
+    .import {
+        color: red;
+    }
+
+    .notimport {
+        color: rgb(39, 38, 38);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Todo List</h1>
+{% for todo in todos%}
+<div class="todo-style">
+    <p class="date">{{todo.created}}</p>
+    <p>{{todo.title}}
+        {% if todo.important is True%}
+        <span class="import">(重要)</span>
+        {% else %}
+        <span class="notimport">(不重要)</span>
+        {% endif %}
+    </p>
+    <p class="text">{{todo.text}}</p>
+</div>
 
+{% endfor %}
 
 {% endblock %}
