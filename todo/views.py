@@ -2,10 +2,21 @@ from django.shortcuts import render, redirect
 from .models import Todo
 from .forms import TodoForm
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
+@login_required
+def delete_todo(request, id):
+    try:
+        todo = Todo.objects.fet(id=id)
+        todo.delete()
+    except Exception as e:
+        print(e)
+
+
+@login_required
 def completed_todo(request):
     todos = None
     if request.user.is_authenticated:
@@ -17,6 +28,7 @@ def completed_todo(request):
     return render(request, "todo/completed_todo.html", {"todos": todos})
 
 
+@login_required
 def create_todo(request):
     form = TodoForm()
     message = ""
@@ -46,8 +58,10 @@ def todolist(request):
     return render(request, "todo/todo.html", {"todos": todos})
 
 
+@login_required
 def view_todo(request, id):
     todo = None
+    form = None
     message = ""
     try:
         todo = Todo.objects.get(id=id)
