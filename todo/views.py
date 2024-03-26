@@ -29,7 +29,7 @@ def todolist(request):
     todos = None
     if request.user.is_authenticated:
         # all, get, filter
-        todos = Todo.objects.filter(user=request.user)
+        todos = Todo.objects.filter(user=request.user).order_by("-created")
 
     return render(request, "todo/todo.html", {"todos": todos})
 
@@ -38,7 +38,20 @@ def view_todo(request, id):
     todo = None
     try:
         todo = Todo.objects.get(id=id)
+        form = TodoForm(instance=todo)
+
+        if request.method == "POST":
+            print(request.POST)
+            if request.POST.get("update"):
+                form = TodoForm(request.POST, instance=todo)
+                if form.is_valid():
+                    form.save()
+            elif request.POST.get("delete"):
+                todo.delete()
+
+            return redirect("todolist")
+
     except Exception as e:
         print(e)
 
-    return render(request, "todo/view-todo.html", {"todo": todo})
+    return render(request, "todo/view-todo.html", {"todo": todo, "form": form})
