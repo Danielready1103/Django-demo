@@ -25,7 +25,13 @@
 
 {% block content %}
 <h1>Todo</h1>
-<div class="todo-style">{{todo.created}}<br>{{todo.title}}
+<p>建立時間: {{todo.created}}</p>
+
+{% if todo.date_completed %}
+<p>完成時間: {{todo.date_completed}}</p>
+{% endif %}
+
+<div class="todo-style">{{todo.title}}
 
     <div class="content">
         <p>{{todo.text}}</p>
@@ -40,7 +46,4 @@
     <input type="submit" name="update" id="update" value="更新">
     <input type="submit" name="delete" id="delete" value="刪除">
 </form>
-
-
-
 {% endblock %}

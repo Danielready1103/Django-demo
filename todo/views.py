@@ -1,8 +1,20 @@
 from django.shortcuts import render, redirect
 from .models import Todo
 from .forms import TodoForm
+from datetime import datetime
 
 # Create your views here.
+
+
+def completed_todo(request):
+    todos = None
+    if request.user.is_authenticated:
+        # all, get, filter
+        todos = Todo.objects.filter(user=request.user, completed=True).order_by(
+            "-created"
+        )
+
+    return render(request, "todo/completed_todo.html", {"todos": todos})
 
 
 def create_todo(request):
@@ -36,6 +48,7 @@ def todolist(request):
 
 def view_todo(request, id):
     todo = None
+    message = ""
     try:
         todo = Todo.objects.get(id=id)
         form = TodoForm(instance=todo)
@@ -43,15 +56,24 @@ def view_todo(request, id):
         if request.method == "POST":
             print(request.POST)
             if request.POST.get("update"):
+                if request.POST.get("completed"):
+                    todo.date_completed = datetime.now()
+                else:
+                    todo.date_completed = None
+
                 form = TodoForm(request.POST, instance=todo)
                 if form.is_valid():
                     form.save()
+                    message = "修改成功。"
+
             elif request.POST.get("delete"):
                 todo.delete()
-
-            return redirect("todolist")
+                return redirect("todolist")
 
     except Exception as e:
         print(e)
+        message = "修改或刪除失敗。"
 
-    return render(request, "todo/view-todo.html", {"todo": todo, "form": form})
+    return render(
+        request, "todo/view-todo.html", {"todo": todo, "form": form, "message": message}
+    )

@@ -6,4 +6,4 @@ class TodoForm(ModelForm):
     # 表單綁定資料模型
     class Meta:
         model = Todo
-        fields = ["title", "text", "important"]
+        fields = ["title", "text", "important", "completed"]

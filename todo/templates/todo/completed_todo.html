@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}代辦事項{% endblock %}
+{% block title %}已完成事項{% endblock %}
 
 {% block style %}
 <style>
@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>Todo List</h1>
+<h1>已完成事項</h1>
 {% for todo in todos%}
 <div class="todo-style">
     <p class="date">{{todo.created}}</p>
